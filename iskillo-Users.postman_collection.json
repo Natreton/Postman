@@ -1,0 +1,180 @@
+{
+	"info": {
+		"_postman_id": "98af9b5d-249a-4b15-83b8-35bd353259bb",
+		"name": "iskillo-Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1cbdc073-f066-4694-829e-aef8c0a5b0dc",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTk5LCJ1c2VybmFtZSI6IldoaXRlQ29uIiwicm9sZXMiOlt7ImlkIjoyLCJyb2xlIjoxfV0sImlzQmFubmVkIjpmYWxzZSwiaWF0IjoxNTk0MDMxNjkxLCJleHAiOjE1OTQwMzUyOTF9.k7lR2CwBDyUnEfDJLzNf0NdzfVl6SwPv_yVtXjnafbo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://161.35.202.130:3100/users",
+					"protocol": "http",
+					"host": [
+						"161",
+						"35",
+						"202",
+						"130"
+					],
+					"port": "3100",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cde389da-80e1-41b8-abcc-8d67ee63ea36",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Check that response message is Username taken\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Username taken\");\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"WhiteCon\",\r\n  \"email\": \"whitecon@con.com\",\r\n  \"birthDate\": \"07.06.2000\",\r\n  \"password\": \"belconbelcon\",\r\n  \"publicInfo\": \"Golem bel con\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{webserviceurl}}/users/",
+					"host": [
+						"{{webserviceurl}}"
+					],
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserLogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "653e5481-eeea-4808-97f6-f0034b271aee",
+						"exec": [
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"usernameOrEmail\": \"WhiteCon\",\r\n  \"password\": \"belconbelcon\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://161.35.202.130:3100/users/login",
+					"protocol": "http",
+					"host": [
+						"161",
+						"35",
+						"202",
+						"130"
+					],
+					"port": "3100",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
